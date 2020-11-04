@@ -21,8 +21,9 @@
         <p
           class="text-center"
           style="width: 14.28%"
-          v-for="num in daysInMonth(currentYear, currentMonth)"
+          v-for="num in daysInMonth()"
           :key="num"
+          :class="currentDateClass(num)"
         >
           {{ num }}
         </p>
@@ -45,14 +46,19 @@ export default {
     };
   },
   methods: {
-    daysInMonth(year, month) {
-      return new Date(year, month + 1, 0).getDate();
+    daysInMonth() {
+      return new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
     },
     startDay() {
       return new Date(this.currentYear, this.currentMonth, 1).getDay();
     },
     prev() {
-      this.currentMonth--;
+      if (this.currentMonth == 0) {
+        this.currentMonth = 11;
+        this.currentYear--;
+      } else {
+        this.currentMonth--;
+      }
     },
     next() {
       if (this.currentMonth == 11) {
@@ -61,6 +67,15 @@ export default {
       } else {
         this.currentMonth++;
       }
+    },
+    currentDateClass(num) {
+      const calendarFullDate = new Date(
+        this.currentYear,
+        this.currentMonth,
+        num
+      ).toDateString();
+      const currentFullDate = new Date().toDateString();
+      return calendarFullDate == currentFullDate ? "text-yellow-600" : " ";
     },
   },
   computed: {
