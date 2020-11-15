@@ -59,6 +59,7 @@ export default {
         { title: "Dc Heros", to: "/dc-heros" },
         { title: "Calendar", to: "/calendar" },
         { title: "Markdown", to: "/markdown" },
+        { title: "Slider", to: "/slider" },
       ],
     };
   },
